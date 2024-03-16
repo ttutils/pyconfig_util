@@ -1,5 +1,7 @@
 import os
 import yaml
+import logging
+import sys
 
 
 class Setting(object):
@@ -7,6 +9,12 @@ class Setting(object):
         root_dir = os.getcwd()
         config_file = root_dir + '/config/' + 'setting.yaml'  # 假设这是你的YAML文件名
         config_path = os.path.join(root_dir, config_file)
+
+        # 检查是否存在配置文件
+        if not os.path.exists(config_path):
+            # 退出整个程序
+            logging.error('没有配置文件!!!')
+            sys.exit()
 
         with open(config_path, 'r', encoding='utf-8') as file:
             config_data = yaml.safe_load(file)
